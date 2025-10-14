@@ -7,13 +7,48 @@ nav_order: 4
 description: R packages and templates.
 ---
 
-<!-- Optional: tiny page-local styles to size the hex thumbnails nicely -->
+<!-- Inline page-specific styling -->
 <style>
-  /* Keep it scoped to this page by prefixing with .page--software */
-  .page--software .pub-thumb{width:120px;min-width:120px}
-  .page--software .pub-thumb img{width:100%;height:auto;border-radius:12px;box-shadow:var(--shadow-1)}
-  .page--software .pub-meta{padding-left:1rem}
-  .page--software .pub-links .btn{margin-right:.35rem;margin-top:.35rem}
+  .page--software .pub-card {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .page--software .pub-thumb {
+    width: 120px;
+    min-width: 120px;
+    flex-shrink: 0;
+  }
+
+  .page--software .pub-thumb img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: var(--shadow-1);
+  }
+
+  .page--software .pub-meta {
+    padding-left: 1.5rem;
+  }
+
+  .page--software .pub-links .btn {
+    margin-right: 0.35rem;
+    margin-top: 0.35rem;
+  }
+
+  /* Optional: make it stack vertically on small screens */
+  @media (max-width: 600px) {
+    .page--software .pub-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .page--software .pub-meta {
+      padding-left: 0;
+      padding-top: 1rem;
+    }
+  }
 </style>
 
 <div class="page--software">
@@ -22,20 +57,25 @@ description: R packages and templates.
     <!-- Card 1 -->
     <article class="pub-card">
       <div class="pub-thumb">
-        <img src="{{ '/assets/img/software/academicwriting_hex.png' | relative_url }}" alt="mypkg hex sticker">
+        <img src="{{ '/assets/img/software/academicwriting_hex.png' | relative_url }}" alt="academicwritingr hex sticker">
       </div>
       <div class="pub-meta">
         <h3 class="pub-title">
-          <a href="https://cran.r-project.org/package=mypkg" target="_blank" rel="noopener">mypkg</a>
+          <a href="https://github.com/danielkuhlen/academicwriting" target="_blank" rel="noopener">academicwritingr</a>
         </h3>
-        <div class="pub-venue">Tools for awesome analysis</div>
+        <div class="pub-venue">
+          A Quarto template for a reproducible, integrated and reproducible writing process.
+        </div>
         <p class="pub-abstract">
-          Minimal description (1–2 sentences) of what the package does and for whom.
+          academicwriting consolidates Quarto templates for academic articles, abstracts, pre-analysis plans,
+          conference presentations, and R&R memos, keeping all files in a clean, organized structure.
         </p>
         <div class="pub-links">
-          <a class="btn btn-sm" href="https://cran.r-project.org/package=mypkg" target="_blank" rel="noopener">CRAN</a>
-          <a class="btn btn-sm" href="https://github.com/yourname/mypkg" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn btn-sm" href="https://github.com/danielkuhlen/academicwriting" target="_blank" rel="noopener">GitHub</a>
           <a class="btn btn-sm" href="https://yourname.github.io/mypkg" target="_blank" rel="noopener">Docs</a>
         </div>
       </div>
     </article>
+
+  </div>
+</div>
