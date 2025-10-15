@@ -59,17 +59,22 @@ description: R packages and templates.
       <div class="pub-thumb">
         <img src="{{ '/assets/img/software/academicwriting_hex.png' | relative_url }}" alt="academicwritingr hex sticker">
       </div>
+
       <div class="pub-meta">
         <h3 class="pub-title">
           <a href="https://github.com/danielkuhlen/academicwriting" target="_blank" rel="noopener">academicwriting</a>
         </h3>
+
         <div class="pub-venue">
           A Quarto template for a reproducible, integrated and reproducible writing process that consolidates Quarto templates for academic articles, abstracts, pre-analysis plans,
           conference presentations, and R&R memos, keeping all files in a clean, organized structure.
-        </div> <!-- ✅ close this div -->
+        </div>
+
         <div class="pub-links">
           <a class="btn btn-sm" href="https://github.com/danielkuhlen/academicwriting" target="_blank" rel="noopener">GitHub</a>
         </div>
+      </div>
+    </article> <!-- ✅ close the article -->
 
   </div>
 </div>
