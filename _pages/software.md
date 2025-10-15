@@ -64,13 +64,12 @@ description: R packages and templates.
           <a href="https://github.com/danielkuhlen/academicwriting" target="_blank" rel="noopener">academicwriting</a>
         </h3>
         <div class="pub-venue">
-          A Quarto template for a reproducible, integrated and reproducible writing process. that consolidates Quarto templates for academic articles, abstracts, pre-analysis plans,
+          A Quarto template for a reproducible, integrated and reproducible writing process that consolidates Quarto templates for academic articles, abstracts, pre-analysis plans,
           conference presentations, and R&R memos, keeping all files in a clean, organized structure.
+        </div> <!-- ✅ close this div -->
         <div class="pub-links">
           <a class="btn btn-sm" href="https://github.com/danielkuhlen/academicwriting" target="_blank" rel="noopener">GitHub</a>
         </div>
-      </div>
-    </article>
 
   </div>
 </div>
