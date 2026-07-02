@@ -12,3 +12,11 @@ node_modules/
 vendor
 .idea
 .Rproj.user
+
+# LaTeX build artifacts (CV is compiled from assets/pdf/*.tex)
+assets/pdf/*.aux
+assets/pdf/*.log
+assets/pdf/*.out
+assets/pdf/*.fls
+assets/pdf/*.fdb_latexmk
+assets/pdf/*.synctex.gz
