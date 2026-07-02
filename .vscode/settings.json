@@ -1,0 +1,37 @@
+{
+  // LaTeX Workshop — compile the CV (assets/pdf/cv_kuhlen.tex) with latexmk.
+  // Works in Positron/VS Code with the James-Yu.latex-workshop extension
+  // and a TeX distribution on PATH (TinyTeX). The PDF is written next to the
+  // .tex, i.e. assets/pdf/cv_kuhlen.pdf — exactly where the website reads it.
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-pdf",
+        "-interaction=nonstopmode",
+        "-synctex=1",
+        "-file-line-error",
+        "-halt-on-error",
+        "%DOC%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [{ "name": "latexmk (pdflatex)", "tools": ["latexmk"] }],
+  // Rebuild on every save so the PDF preview stays current while you edit.
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  // Show the compiled PDF in an editor tab.
+  "latex-workshop.view.pdf.viewer": "tab",
+  // Remove build junk (.aux/.log/…) after each build; these are git-ignored.
+  // .synctex.gz is kept so click-to-source (SyncTeX) keeps working.
+  "latex-workshop.latex.autoClean.run": "onBuilt",
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.aux",
+    "*.bbl",
+    "*.blg",
+    "*.fdb_latexmk",
+    "*.fls",
+    "*.log",
+    "*.out"
+  ]
+}
