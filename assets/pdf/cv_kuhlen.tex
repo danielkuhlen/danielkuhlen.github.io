@@ -1,33 +1,37 @@
-\documentclass{resume} 
+\documentclass{resume}
 
-\usepackage[left=0.4 in,top=0.4in,right=0.4 in,bottom=0.4in]{geometry} 
-\usepackage{tikz}
-\usepackage{fontawesome5}
+% =============================================================================
+% Curriculum Vitae — Daniel Kuhlen
+% Built on the "resume" class (see resume.cls). Compiled to cv_kuhlen.pdf, which
+% the website serves; pushing to the repo re-compiles it automatically via
+% GitHub Actions.
+
+%
+% Most entries use a date-left table, one row per entry:
+%   DATE & \textbf{Title}\newline detail\newline detail
+% in a tabularx with column spec {@{\hspace{1.5em}}p{1.5in} X@{}}:
+%   @{\hspace{1.5em}}  indents the whole entry
+%   p{1.5in}           fixed-width date column (keeps titles aligned)
+%   X                  title + details, wraps to the right margin
+% Education / Work give each entry its own table separated by \vspace, so the
+% gaps are explicit; Conferences group several rows per year in one table.
+% Section-header size/style lives in resume.cls; page margins are set below.
+% =============================================================================
+
+\usepackage[left=0.4in, top=0.4in, right=0.4in, bottom=0.4in]{geometry}
+\usepackage{tikz}          % draws the \grade proficiency dots
+\usepackage{fontawesome5}  % \faGithub icon
+\usepackage{tabularx}      % date-left entry tables
 
 \hypersetup{
-    colorlinks=false, 
-    linkbordercolor=blue, 
-    filebordercolor=magenta, 
-    urlbordercolor=cyan, 
-    pdfborder={0 0 1}, 
-    pdftitle={Overleaf Example},
-    pdfpagemode=FullScreen,
+    colorlinks=false,
+    urlbordercolor=cyan,
+    pdfborder={0 0 1},
+    pdftitle={Daniel Kuhlen -- Curriculum Vitae},
 }
 
-\newcommand{\tab}[1]{\hspace{.2667\textwidth}\rlap{#1}} 
-\newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
-
-\name{Daniel Kuhlen}
-\address{
-    Website: \href{https://danielkuhlen.github.io}{danielkuhlen.com} Mail: \href{mailto:daniel.kuhlen@hu-berlin.de}{daniel.kuhlen@hu-berlin.de}
-}
- 
-\address{
-\href{https://github.com/danielkuhlen}{\faGithub} 
-}
-
-
-
+% \grade{n} draws n filled dots out of 5 (used in Software / Languages);
+% accepts halves, e.g. \grade{4.5}.
 \newcommand{\grade}[1]{%
     \begin{tikzpicture}
         \clip (1em-.3em,-.3em) rectangle (5em +.5em ,.3em);
@@ -43,31 +47,39 @@
     \end{tikzpicture}%
 }
 
+\name{Daniel Kuhlen}
+\address{
+    Website: \href{https://danielkuhlen.github.io}{danielkuhlen.com} Mail: \href{mailto:daniel.kuhlen@hu-berlin.de}{daniel.kuhlen@hu-berlin.de}
+}
+\address{
+    \href{https://github.com/danielkuhlen}{\faGithub}
+}
+
 \begin{document}
 
 %---------------------------------------------------------------------------------
-%--- EDUCATION SECTION ---
+%--- Education ---
 %---------------------------------------------------------------------------------
 
 \begin{rSection}{Education}
-
 \vspace{.2cm}
 
-    {\bf DYNAMICS Research Training Group}  \hfill {since Sep 2025}\\
-    Doctoral Candidate \\
-    Supervisor: Prof. Dr. Felix Haass
-    \vspace{.2cm}
+    {\setlength{\parskip}{0pt}\renewcommand{\arraystretch}{1.2}%
+    \noindent\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
+    since Sep 2025 & \textbf{DYNAMICS Research Training Group}\newline Doctoral Candidate\newline \nth{1} Supervisor: Prof. Dr. Felix Haass\newline \nth{2} Supervisor: Prof. Dr. Anita Gohdes
+    \end{tabularx}
 
-    {\bf Humboldt-Universität zu Berlin}  \hfill {Apr 2023 - Aug 2025}\\
-    M.A. Social Sciences, GPA: 1.1 (Thesis: 1.0)
-    
-    \hspace{.5cm}{\bf University of British Columbia}  \hfill {Jan 2025 - Apr 2025}\\
-    \vspace{-0.2cm}
-    \hspace{.4cm}Exchange Semester at the School of Public Policy and Global Affairs
-    \vspace{.5cm}
+    \vspace{.1cm}\noindent\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
+    Apr 2023 - Aug 2025 & \textbf{Humboldt-Universität zu Berlin}\newline M.A. Social Sciences, GPA: 1.1 (Thesis: 1.0)
+    \end{tabularx}
 
-    {\bf Humboldt-Universität zu Berlin}  \hfill {Oct 2019 - Aug 2023}\\
-    B.A. Social Sciences, GPA: 1.7 (Thesis: 1.7)
+    \vspace{.1cm}\noindent\begin{tabularx}{\linewidth}{@{\hspace{3.5em}}p{1.5in} X@{}}
+    Jan 2025 - Apr 2025 & \textbf{University of British Columbia}\newline Exchange Semester at the School of Public Policy and Global Affairs
+    \end{tabularx}
+
+    \vspace{.1cm}\noindent\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
+    Oct 2019 - Aug 2023 & \textbf{Humboldt-Universität zu Berlin}\newline B.A. Social Sciences, GPA: 1.7 (Thesis: 1.7)
+    \end{tabularx}\par}
 \end{rSection}
 
 \vspace{.2cm}
@@ -76,181 +88,165 @@
 %---------------------------------------------------------------------------------
 
 \begin{rSection}{Academic Work Experience}
+\vspace{.2cm}
 
- \vspace{.4cm}
-    \textbf{Technical University Chemnitz} \hfill Feb 2023 - Jul 2025 \\
-    Student Assistant at the Chair of Political Science Research Methods \\
-    Chair: Jun.-Prof Arndt Leininger
+    {\setlength{\parskip}{0pt}\renewcommand{\arraystretch}{1.2}%
+    \noindent\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
+    Feb 2023 - Jul 2025 & \textbf{Technical University Chemnitz}\newline Student Assistant at the Chair of Political Science Research Methods\newline Chair: Jun.-Prof. Arndt Leininger
+    \end{tabularx}
 
-    \textbf{Technical University Darmstadt} \hfill Aug 2022 - Aug 2025 \\
-    Student Assistant at the Chair of German Pol. System and Comparison of Pol. Systems \\
-    Chair: Prof. Dr. Christian Stecker
+    \vspace{.1cm}\noindent\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
+    Aug 2022 - Aug 2025 & \textbf{Technical University Darmstadt}\newline Student Assistant at the Chair of German Pol. System and Comparison of Pol. Systems\newline Chair: Prof. Dr. Christian Stecker
+    \end{tabularx}
 
-    \textbf{Humboldt University Berlin} \hfill Mar 2021 - Jul 2022 \\
-    Student Assistant at the Chair of German Politics \\
-    Chair: Prof. Dr. Jochen Müller
+    \vspace{.1cm}\noindent\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
+    Mar 2021 - Jul 2022 & \textbf{Humboldt University Berlin}\newline Student Assistant at the Chair of German Politics\newline Chair: Prof. Dr. Jochen Müller
+    \end{tabularx}\par}
 \end{rSection}
 
 \vspace{.2cm}
 %---------------------------------------------------------------------------------
-%--- Peer-Reviewed Publications ---
+%--- Publications ---
 %---------------------------------------------------------------------------------
 
-\begin{rSection}{Peer-Reviewed Publications} 
+\begin{rSection}{Publications}
 \vspace{.2cm}
     Koch, Kuhlen, Müller, Stecker: StatePol—A Database on the Members of German State Cabinets and Parliaments. \textit{German Political Science Quarterly (2024)}. \href{https://doi.org/10.1007/s11615-024-00528-z}{https://doi.org/10.1007/s11615-024-00528-z}
-\end{rSection} 
+\end{rSection}
 
 \vspace{.4cm}
 %---------------------------------------------------------------------------------
-%--- Working Papers ---
+%--- Work in Progress ---
 %---------------------------------------------------------------------------------
 
-\begin{rSection}{Work in Progress} 
+\begin{rSection}{Work in Progress}
+\vspace{.2cm}
+    \textit{Does State Violence Legitimize Authoritarian Rule? Evidence from the Salvadoran Gang Crackdown}
+    \newline -single-authored (\textit{under review})
 
 \vspace{.2cm}
-    \textit{Why Do Citizens Support Authoritarian Rule? Evidence from the Salvadoran-Gang-Crackdown}
-\begin{itemize}
-    \item draft available upon request
-\end{itemize}
-\vspace{.2cm}
-    \textit{How Does Post-Communist Farmland Abandonment in Eastern Europe Influence Political Attitudes?} 
+    \textit{How Does Post-Communist Farmland Abandonment in Eastern Europe Influence Political Attitudes?}
     \newline -with Dani Sandu (University of Fribourg)
 
 \vspace{.2cm}
-    \textit{Punish or Reconcile? Policy Performance, Threat Framing and Support for Repression} 
+    \textit{Punish or Reconcile? Policy Performance, Threat Framing and Support for Repression}
     \newline -with Jorge Zavala (WZB), Giovanna Lapresa (Humboldt University)
-
-\vspace{.2cm}
-    \textit{Campaigning Will Not Stop the Far Right: Causal Evidence
-From Saxony} 
-    \newline -with Andreas Küpfer (TU Darmstadt), Julius Kölzer (University Kiel) and Christian Stecker (TU Darmstadt)    
-\end{rSection} 
+\end{rSection}
 \newpage
 
 %---------------------------------------------------------------------------------
-% Conference Presentations
+%--- Conferences & Workshops ---
 %---------------------------------------------------------------------------------
 
-\begin{rSection}{Conference \& Workshop Presentations}
+\begin{rSection}{Conferences \& Workshops}
 \vspace{.2cm}
 
-    \textbf{European Political Science Society (EPSS)} 
-        \begin{itemize}
-        \item General Conference (\textit{forthcoming}) \hfill 2026, Belfast 
-        \end{itemize}
+\textbf{Conferences}
 
-    \textbf{Network of European Peace Scientists (NEPS)} 
-        \begin{itemize}
-        \item Jan Tinbergen European Peace Science Conference (\textit{forthcoming}) \hfill 2026, Berlin 
-        \end{itemize}        
+{\renewcommand{\arraystretch}{1.2}%
+\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{2.6em} X@{}}
+2026 & European Political Science Society (EPSS), Belfast \\
+\end{tabularx}}
 
-    \textbf{Authoritarian Political Systems Group (APSG)} 
-        \begin{itemize}
-        \item \nth{4} APSG Conference (\textit{forthcoming})\hfill 2026, London UK
-        \item Spring 2025 Workshop Series \hfill 2025, Online
-        \end{itemize}
+\vspace{.15cm}
+\textbf{Workshops \& Specialized Conferences}
 
-    \textbf{University College London (UCL)} 
-        \begin{itemize}
-        \item \nth{8} Conflict \& Change PhD Workshop (\textit{forthcoming}) \hfill 2026, London
-        \end{itemize}        
-
-    \textbf{International Association for the Study of German Politics (IASGP)} 
-        \begin{itemize}
-        \item \nth{48} annual conference: \textit{Divisions domestically and beyond: German politics in 2024} \hfill 2024, Darmstadt
-        \item \nth{47} annual conference: \textit{Shocks to the German system? German politics in 2023} \hfill 2023, Mannheim
-        \end{itemize}
-
-    \textbf{German Political Science Association (GPSA)} 
-        \begin{itemize}
-        \item Conference of the standing group \textit{Comparative Legislative Studies} \hfill 2023, Bamberg
-        \item Conference of the standing group \textit{Government System and Governance in Germany} \hfill 2023, Berlin
-        \end{itemize}
-
+{\renewcommand{\arraystretch}{1.2}%
+\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{2.6em} X@{}}
+2026 & Jan Tinbergen European Peace Science Conference (NEPS), Humboldt University of Berlin \\
+     & 4th Authoritarian Political Systems Group Conference (APSG), Queen Mary University of London \\
+     & Conflict \& Change PhD Workshop, University College London \\
+     & \nth{10} Workshop on Conflict Dynamics, Uppsala University \\
+     & Democratic Resilience Meets Democratic Backsliding Workshop, Technical University of Darmstadt \\[.35cm]
+2025 & Authoritarian Political Systems Group (APSG) Spring Workshop Series, Online \\[.35cm]
+2024 & International Association for the Study of German Politics (IASGP) \nth{48} annual conference, Darmstadt \\[.35cm]
+2023 & International Association for the Study of German Politics (IASGP) \nth{47} annual conference, Mannheim \\
+     & German Political Science Association (GPSA)\newline\hspace*{1.5em}Conference of the standing group \textit{Comparative Legislative Studies}, Bamberg\newline\hspace*{1.5em}Conference of the standing group \textit{Government System and Governance in Germany}, Berlin \\
+\end{tabularx}}
 \end{rSection}
 
+\vspace{.45cm}
 %---------------------------------------------------------------------------------
-% Workshops
+%--- Summer Schools ---
 %---------------------------------------------------------------------------------
-\vspace{0.45cm}
 
 \begin{rSection}{Summer Schools}
+\vspace{.2cm}
 
-    \vspace{0.2cm}
-    \textbf{European University Institute (EUI)} \hfill 9 - 13 Sep 2024 \\
-    SPS Summer Academy \hfill Florence, Italy 
+    {\renewcommand{\arraystretch}{1.2}%
+    \begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
+    9 - 13 Sep 2024 & \textbf{European University Institute (EUI)}\newline SPS Summer Academy, Florence, Italy \\
+    \end{tabularx}}
 \end{rSection}
 
 \vspace{.4cm}
 %---------------------------------------------------------------------------------
-% Grants, Scholarships
+%--- Grants & Scholarships ---
 %---------------------------------------------------------------------------------
 
 \begin{rSection}{Grants \& Scholarships}
-
-    \vspace{0.2cm}
+\vspace{.2cm}
 
     \textbf{Budget Committee of the Institute of Social Sciences at Humboldt University} \\
-    Type: Travel and Accommodation during the Participation at the EUI SPS Summer Academy \\
-    Amount: 764,32€ 
+    Type: Travel and accommodation for participation in the EUI SPS Summer Academy \\
+    Amount: 764,32€
 
     \textbf{Humboldt PROMOS} \\
     Type: Mobility scholarship for an exchange semester at the University of British Columbia \\
-    Amount: 2750,00€ 
-
+    Amount: 2750,00€
 \end{rSection}
 
 \vspace{.4cm}
 %---------------------------------------------------------------------------------
-% Invited Talks
+%--- Invited Talks ---
 %---------------------------------------------------------------------------------
 
 \begin{rSection}{Invited Talks}
+\vspace{.2cm}
 
-    \vspace{0.2cm}
-    Technical University of Darmstadt \hfill 2025 \\
-    Humboldt University, Institute of Social Science \hfill 2024 \\
-    University of Potsdam, Department of Political and Administrative Science \hfill 2024 \\
-    
+{\renewcommand{\arraystretch}{1.2}%
+\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{2.6em} X@{}}
+2024 & Humboldt University, Institute of Social Sciences \\
+     & University of Potsdam, Department of Political and Administrative Science
+\end{tabularx}}
 \end{rSection}
 
-\newpage
-
+\vspace{.4cm}
 %---------------------------------------------------------------------------------
-%--- Other Work Experience ---
-%---------------------------------------------------------------------------------
-
-\begin{rSection}{Other Work Experience} 
-
-    \vspace{0.2cm}
-    \textbf{Social Pedagogical Institute Berlin Walter May} \hfill Mar 2022 - Oct 2022 \\
-    Student Assistant in the Living Conditions, Diversity and Urban Development Division \\
-    Assistance in the extended reception center for unaccompanied minor refugees
-
-\end{rSection} 
-\vspace{0.4cm}
-
-%---------------------------------------------------------------------------------
-% Hard Skills and Languages Side by Side
+%--- Non-Academic Work Experience ---
 %---------------------------------------------------------------------------------
 
-\noindent % This ensures that the following content starts on a new line
-\begin{minipage}[t]{0.5\textwidth} % This minipage takes up half the width of the page
+\begin{rSection}{Non-Academic Work Experience}
+\vspace{.2cm}
+
+    {\setlength{\parskip}{0pt}\renewcommand{\arraystretch}{1.2}%
+    \noindent\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
+    Mar 2022 - Oct 2022 & \textbf{Social Pedagogical Institute Berlin Walter May}\newline Student Assistant in the Living Conditions, Diversity and Urban Development Division\newline Assistance in the extended reception center for unaccompanied minor refugees
+    \end{tabularx}\par}
+\end{rSection}
+
+\vspace{.4cm}
+%---------------------------------------------------------------------------------
+%--- Software & Languages ---
+%---------------------------------------------------------------------------------
+% Two rSections placed side by side in equal-width minipages.
+
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
     \begin{rSection}{Software}
-        \vspace{0.2cm}
+        \vspace{.2cm}
         \begin{tabular}{ @{} >{\bfseries}l @{\hspace{6ex}} l }
             R & \grade{4}\\
             \LaTeX & \grade{4}\\
-            Python & \grade{2}\\
-            ArcGis & \grade{2}
+            Python & \grade{3}\\
+            ArcGIS & \grade{3}
         \end{tabular}
     \end{rSection}
 \end{minipage}
-\hfill % This ensures that the next minipage is placed as far to the right as possible
-\begin{minipage}[t]{0.5\textwidth} % This minipage also takes up half the width of the page
+\hfill
+\begin{minipage}[t]{0.5\textwidth}
     \begin{rSection}{Languages}
-        \vspace{0.3cm}
+        \vspace{.3cm}
         \begin{tabular}{ @{} >{\bfseries}l @{\hspace{6ex}} l }
             German & \grade{5} first language \\
             English & \grade{4.5} C2\\
