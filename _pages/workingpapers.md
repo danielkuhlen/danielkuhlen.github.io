@@ -106,8 +106,8 @@ nav_order: 3
       <img src="/assets/img/dataviz_sv_paper.png" alt="Data visualization for the Salvadoran Gang Crackdown paper">
     </div>
     <div class="wp-text">
-      <h3>Why Do Citizens Support Authoritarian Rule? Evidence from the Salvadoran-Gang-Crackdown</h3>
-      <p class="wp-abstract">Why do citizens support authoritarian rule? Recent studies highlight how autocrats use targeted repression of groups perceived as a threat to build support among citizen bystanders. However, the conditions under which this mechanism operates remain insufficiently understood. I argue that in high-crime settings, targeted repression of organized criminal groups (OCGs) generates popular support for authoritarian regimes by addressing citizen bystanders' most pressing need: security. I test this argument by examining how the 2022 Salvadoran-Gang-Crackdown (SGC), a coercive anti-gang state of emergency, affected public safety and regime support. First, I use highly disaggregated gang-control data and NASA's nighttime light data as a proxy for public safety to estimate the causal effect of the crackdown in a difference-in-differences design. Second, I link the local safety changes to fine-grained, geocoded survey data to assess how targeted repression shapes support for authoritarian rule among citizen bystanders. The results indicate that the SGC significantly improved public safety in gang-controlled areas and that these local safety gains, in turn, increased support for authoritarian rule. Taken together, the findings offer critical insights into authoritarian legitimation through coercive repression in high-violence contexts.</p>
+      <h3>Does State Violence Legitimize Authoritarian Rule? Evidence from the Salvadoran Gang Crackdown</h3>
+      <p class="wp-abstract">Does state violence legitimize authoritarian rule? Recent work contrasts a common view that autocrats use repression not only to eliminate threats, but also to build support. I extend the legitimation logic of repression beyond political opponents, arguing that in high-crime settings state violence against organized criminal groups builds support for autocrats when it delivers security. I study the Salvadoran Gang Crackdown (SGC), which suspended civil rights and jailed over 1.3% of the population. First, I use gang-control data and NASA nighttime lights as a public-safety proxy to estimate the crackdown's effect. Second, I link these local safety changes to geocoded survey data. The SGC caused an 11.55% larger increase in nighttime lights in historically high-violence areas, and local safety gains are positively associated with support for authoritarian rule. The findings indicate how coercive governance earns durable legitimacy in high-violence settings when it improves bystanders' living conditions.</p>
       <div class="wp-status">- <em>Draft available upon request</em></div>
     </div>
   </div>
@@ -123,11 +123,6 @@ nav_order: 3
 <div class="wp-entry">
   <h3>Punish or Reconcile? Policy Performance, Threat Framing and Support for Repression</h3>
   <div class="wp-authors">with <a href="https://www.wzb.eu/de/personen/jorge-zavala">Jorge Zavala</a> (WZB), Giovanna Lapresa (Humboldt University)</div>
-</div>
-
-<div class="wp-entry">
-  <h3>Campaigning Will Not Stop the Far Right: Causal Evidence From Saxony</h3>
-  <div class="wp-authors">with <a href="https://andreaskuepfer.github.io">Andreas Küpfer</a> (TU Darmstadt), <a href="https://juliuskoelzer.de">Julius Kölzer</a> (University Kiel) and <a href="https://chrstecker.de">Christian Stecker</a> (TU Darmstadt)</div>
 </div>
 
 </div>
