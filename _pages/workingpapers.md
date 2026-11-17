@@ -98,21 +98,6 @@ nav_order: 3
 
 <div class="wp-section">
 
-<h2>Working Papers</h2>
-
-<div class="wp-entry-featured">
-  <div class="wp-content-row">
-    <div class="wp-image">
-      <img src="/assets/img/dataviz_sv_paper.png" alt="Data visualization for the Salvadoran Gang Crackdown paper">
-    </div>
-    <div class="wp-text">
-      <h3>Does State Violence Legitimize Authoritarian Rule? Evidence from the Salvadoran Gang Crackdown</h3>
-      <p class="wp-abstract">Does state violence legitimize authoritarian rule? Recent work contrasts a common view that autocrats use repression not only to eliminate threats, but also to build support. I extend the legitimation logic of repression beyond political opponents, arguing that in high-crime settings state violence against organized criminal groups builds support for autocrats when it delivers security. I study the Salvadoran Gang Crackdown (SGC), which suspended civil rights and jailed over 1.3% of the population. First, I use gang-control data and NASA nighttime lights as a public-safety proxy to estimate the crackdown's effect. Second, I link these local safety changes to geocoded survey data. The SGC caused an 11.55% larger increase in nighttime lights in historically high-violence areas, and local safety gains are positively associated with support for authoritarian rule. The findings indicate how coercive governance earns durable legitimacy in high-violence settings when it improves bystanders' living conditions.</p>
-      <div class="wp-status">- <em>Draft available upon request</em></div>
-    </div>
-  </div>
-</div>
-
 <h2>Work in Progress</h2>
 
 <div class="wp-entry">
