@@ -1,257 +1,282 @@
-\documentclass{resume}
+\documentclass[11pt,a4paper]{article}
 
 % =============================================================================
 % Curriculum Vitae — Daniel Kuhlen
-% Built on the "resume" class (see resume.cls). Compiled to cv_kuhlen.pdf, which
-% the website serves; pushing to the repo re-compiles it automatically via
-% GitHub Actions.
-
+% Compiled to cv_kuhlen.pdf, which the website serves; pushing to the repo
+% re-compiles it automatically via GitHub Actions.
 %
-% Most entries use a date-left table, one row per entry:
-%   DATE & \textbf{Title}\newline detail\newline detail
-% in a tabularx with column spec {@{\hspace{1.5em}}p{1.5in} X@{}}:
-%   @{\hspace{1.5em}}  indents the whole entry
-%   p{1.5in}           fixed-width date column (keeps titles aligned)
-%   X                  title + details, wraps to the right margin
-% Education / Work give each entry its own table separated by \vspace, so the
-% gaps are explicit; Conferences group several rows per year in one table.
-% Section-header size/style lives in resume.cls; page margins are set below.
+% Layout: a two-column "label | content" CV. The page's left margin is wide,
+% and section labels (small caps) and years (italic) hang into it with \llap,
+% right-aligned against the content column. Because the content is ordinary
+% paragraphs, entries break across pages naturally.
+%
+% Building blocks (defined below):
+%   \sectionline                 optional horizontal rule before a section
+%   \cvsection{Label}            label on the same line as the next entry
+%   \cvlabel{Label}              label on a line of its own (use before \cvyear)
+%   \cvyear{2026}                italic year in the margin, same line as entry
+%   yearlist + \yearitem{2026}  year column inside the content (Conferences)
+%   \entry{Title}{Date}{Details} bold title, right-aligned date, italic details
 % =============================================================================
 
-\usepackage[left=0.4in, top=0.4in, right=0.4in, bottom=0.4in]{geometry}
-\usepackage{tikz}          % draws the \grade proficiency dots
-\usepackage{fontawesome5}  % \faGithub icon
-\usepackage{tabularx}      % date-left entry tables
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage[super]{nth}   % \nth{1} -> 1st, suffix raised
 
+% Libertinus (as in TeX Live full, which CI uses); Latin Modern if missing.
+\IfFileExists{libertinus.sty}{\usepackage{libertinus}}{\usepackage{lmodern}}
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+
+% Wide left margin holds the labels; content starts at its right edge.
+% Keep labels short enough to fit in the margin (they do not wrap).
+\newlength{\colsep}    \setlength{\colsep}{1.2em}     % gap label | content
+\usepackage[a4paper, top=0.9in, bottom=0.9in, right=0.85in, left=2.1in]{geometry}
+
+\usepackage{xcolor}
+\usepackage{fontawesome5}   % contact icons in the header
+\usepackage{hyperref}
 \hypersetup{
-    colorlinks=false,
-    urlbordercolor=cyan,
-    pdfborder={0 0 1},
+    colorlinks=true,
+    linkcolor=blue, urlcolor=blue,
     pdftitle={Daniel Kuhlen -- Curriculum Vitae},
+    pdfauthor={Daniel Kuhlen},
 }
+\urlstyle{sf}
 
-% \grade{n} draws n filled dots out of 5 (used in Software / Languages);
-% accepts halves, e.g. \grade{4.5}.
-\newcommand{\grade}[1]{%
-    \begin{tikzpicture}
-        \clip (1em-.3em,-.3em) rectangle (5em +.5em ,.3em);
-        \begin{scope}
-            \clip (1em-.3em,-.3em) rectangle (#1em +.5em ,.3em);
-            \foreach \x in {1,2,...,5}{
-                \path[fill=blue] (\x em,0) circle (.25em);
-            }
-        \end{scope}
-        \foreach \x in {1,2,...,5}{
-            \draw (\x em,0) circle (.25em);
-        }
-    \end{tikzpicture}%
-}
+\pagestyle{plain}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\widowpenalty=10000 \clubpenalty=10000  % keep wrapped lines together
 
-\name{Daniel Kuhlen}
-\address{
-    Website: \href{https://danielkuhlen.github.io}{danielkuhlen.com} Mail: \href{mailto:daniel.kuhlen@hu-berlin.de}{daniel.kuhlen@hu-berlin.de}
-}
-\address{
-    \href{https://github.com/danielkuhlen}{\faGithub}
-}
+% --- spacing --------------------------------------------------------------
+\newcommand{\sectionskip}{\par\vspace{1.5em}}  % above every section label
+\newcommand{\entryskip}{\vspace{0.55em}}   % between entries in a section
+% Optional rule between sections: put \sectionline on its own line before a
+% section where you want one (1em above it; the section adds 1em below it).
+\newcommand{\sectionline}{\par\vspace{1em}\hrule}
+
+% --- margin labels ----------------------------------------------------------
+% Right-aligned text in the left margin, ending \colsep before the content.
+% (\hspace{\leftskip} keeps labels in the margin inside the yearlist below.)
+\newcommand{\marginbox}[1]{\llap{#1\hspace{\colsep}\hspace{\leftskip}}}
+
+% Lists where wrapped lines hang (conferences, grants).
+\newenvironment{hanging}{\par\everypar{\hangindent=1em\hangafter=1\relax}}{\par}
+
+% Year column inside the content column (Conferences & Workshops):
+%   \begin{yearlist}
+%   \cvsection{Label}\yearitem{2026}First event\par
+%   Next event\par
+%   \yearitem{2025}Event\par
+%   \end{yearlist}
+% Events align after the year column; wrapped lines align with them.
+\newlength{\yearcol}  \setlength{\yearcol}{3.2em}
+\newenvironment{yearlist}
+    {\par\raggedright\setlength{\leftskip}{\yearcol}}
+    {\par}
+\newcommand{\yearitem}[1]{%
+    \ifvmode\noindent\fi\llap{\makebox[\yearcol][l]{\textit{#1}}}\ignorespaces}
+
+% Presenter marker in the conference list (size: \footnotesize).
+\newcommand{\presenter}{{\footnotesize\textbf{\textit{P}}}}
+\newcommand{\discussant}{{\footnotesize\textbf{\textit{D}}}}  % discussant marker
+
+% Section label, sharing its line with the first entry.
+% Long labels can be split over lines with \\, e.g. \cvsection{Conferences \&\\ Workshops}.
+\newcommand{\cvsection}[1]{%
+    \sectionskip\noindent
+    \marginbox{\smash{\scshape\begin{tabular}[t]{@{}r@{}}#1\end{tabular}}}\ignorespaces}
+
+% Section label on a line of its own (for sections listed by year).
+% Long labels can be split over lines with \\, e.g. \cvlabel{Conferences \&\\ Workshops}.
+\newcommand{\cvlabel}[1]{%
+    \sectionskip\noindent
+    \marginbox{\scshape\begin{tabular}[t]{@{}r@{}}#1\end{tabular}}\strut\par}
+
+% Italic year in the margin, sharing its line with the entry.
+\newcommand{\cvyear}[1]{%
+    \par\noindent\marginbox{\textit{#1}}\ignorespaces}
+
+% --- entries ----------------------------------------------------------------
+% \entry{Title}{Date}{Details}: details may be empty or span several lines (\\).
+\newcommand{\entry}[3]{%
+    \textbf{#1}\hfill #2\par
+    \if\relax\detokenize{#3}\relax\else{\itshape #3\par}\fi}
 
 \begin{document}
+
+%---------------------------------------------------------------------------------
+%--- Header ---
+%---------------------------------------------------------------------------------
+
+% Name on its own line; below it two columns: address on the left, contact on
+% the right (mail on the same line as the university).
+{\large\bfseries Daniel Kuhlen}\par
+\noindent
+\begin{minipage}[t]{0.55\linewidth}
+Humboldt-Universität zu Berlin\par
+DYNAMICS Research Training Group\par
+Luisenstraße 56\par
+10115 Berlin, Germany
+\end{minipage}\hfill
+\begin{minipage}[t]{0.43\linewidth}\raggedleft
+\href{mailto:daniel.kuhlen@hu-berlin.de}{daniel.kuhlen@hu-berlin.de}~\faEnvelope[regular]\par
+\href{https://danielkuhlen.github.io}{danielkuhlen.com}~\faGlobe
+\end{minipage}\par
+\vspace{2em}
 
 %---------------------------------------------------------------------------------
 %--- Education ---
 %---------------------------------------------------------------------------------
 
-\begin{rSection}{Education}
-\vspace{.2cm}
+\cvsection{Education}
+\entry{DYNAMICS Research Training Group}{Sep 2025 -- Present}
+      {Doctoral Candidate\\
+       \nth{1} supervisor: Prof.\ Dr.\ Felix Haass (Humboldt University) \\
+       \nth{2} supervisor: Prof.\ Dr.\ Anita Gohdes (Hertie School)}
+\vspace{1em}
+       \entryskip
+\entry{Humboldt-Universität zu Berlin}{Apr 2023 -- Aug 2025}
+      {M.A. in Social Sciences \\
+      GPA: 1.1 (Thesis: 1.0)}
+\entryskip
+{\leftskip=1.5em  % indented: exchange semester during the M.A. above
+\entry{University of British Columbia}{Jan 2025 -- Apr 2025}
+      {Exchange Semester \\
+      School of Public Policy and Global Affairs}}
+\entryskip
+\entry{Humboldt-Universität zu Berlin}{Oct 2019 -- Aug 2023}
+      {B.A. in Social Sciences \\ 
+      GPA: 1.7 (Thesis: 1.7)}
 
-    {\setlength{\parskip}{0pt}\renewcommand{\arraystretch}{1.2}%
-    \noindent\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
-    since Sep 2025 & \textbf{DYNAMICS Research Training Group}\newline Doctoral Candidate\newline \nth{1} Supervisor: Prof. Dr. Felix Haass\newline \nth{2} Supervisor: Prof. Dr. Anita Gohdes
-    \end{tabularx}
-
-    \vspace{.1cm}\noindent\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
-    Apr 2023 - Aug 2025 & \textbf{Humboldt-Universität zu Berlin}\newline M.A. Social Sciences, GPA: 1.1 (Thesis: 1.0)
-    \end{tabularx}
-
-    \vspace{.1cm}\noindent\begin{tabularx}{\linewidth}{@{\hspace{3.5em}}p{1.5in} X@{}}
-    Jan 2025 - Apr 2025 & \textbf{University of British Columbia}\newline Exchange Semester at the School of Public Policy and Global Affairs
-    \end{tabularx}
-
-    \vspace{.1cm}\noindent\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
-    Oct 2019 - Aug 2023 & \textbf{Humboldt-Universität zu Berlin}\newline B.A. Social Sciences, GPA: 1.7 (Thesis: 1.7)
-    \end{tabularx}\par}
-\end{rSection}
-
-\vspace{.2cm}
-%---------------------------------------------------------------------------------
-%--- Academic Work Experience ---
-%---------------------------------------------------------------------------------
-
-\begin{rSection}{Academic Work Experience}
-\vspace{.2cm}
-
-    {\setlength{\parskip}{0pt}\renewcommand{\arraystretch}{1.2}%
-    \noindent\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
-    Feb 2023 - Jul 2025 & \textbf{Technical University Chemnitz}\newline Student Assistant at the Chair of Political Science Research Methods\newline Chair: Jun.-Prof. Arndt Leininger
-    \end{tabularx}
-
-    \vspace{.1cm}\noindent\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
-    Aug 2022 - Aug 2025 & \textbf{Technical University Darmstadt}\newline Student Assistant at the Chair of German Pol. System and Comparison of Pol. Systems\newline Chair: Prof. Dr. Christian Stecker
-    \end{tabularx}
-
-    \vspace{.1cm}\noindent\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
-    Mar 2021 - Jul 2022 & \textbf{Humboldt University Berlin}\newline Student Assistant at the Chair of German Politics\newline Chair: Prof. Dr. Jochen Müller
-    \end{tabularx}\par}
-\end{rSection}
-
-\vspace{.2cm}
-%---------------------------------------------------------------------------------
-%--- Teaching Experience ---
-%---------------------------------------------------------------------------------
-
-\begin{rSection}{Teaching Experience}
-\vspace{.2cm}
-
-    {\setlength{\parskip}{0pt}\renewcommand{\arraystretch}{1.2}%
-    \noindent\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
-    Sep 2026 - Jan 2027 & \textbf{Hertie School}\newline Teaching Assistant for Statistics II
-    \end{tabularx}\par}
-\end{rSection}
-
-\vspace{.2cm}
 %---------------------------------------------------------------------------------
 %--- Publications ---
 %---------------------------------------------------------------------------------
 
-\begin{rSection}{Publications}
-\vspace{.2cm}
-    Koch, Kuhlen, Müller, Stecker: StatePol—A Database on the Members of German State Cabinets and Parliaments. \textit{German Political Science Quarterly (2024)}. \href{https://doi.org/10.1007/s11615-024-00528-z}{https://doi.org/10.1007/s11615-024-00528-z}
-\end{rSection}
+\sectionline
+\cvsection{Publications}
+Elias Koch, \textbf{Daniel Kuhlen}, Jochen Müller, Christian Stecker (2024). ``StatePol---A Database on the
+Members of German State Cabinets and Parliaments.'' \textit{German Political
+Science Quarterly}. DOI:
+\href{https://doi.org/10.1007/s11615-024-00528-z}{\nolinkurl{10.1007/s11615-024-00528-z}}\par
 
-\vspace{.4cm}
 %---------------------------------------------------------------------------------
 %--- Work in Progress ---
 %---------------------------------------------------------------------------------
 
-\begin{rSection}{Work in Progress}
-\vspace{.2cm}
-    \textit{Does State Violence Legitimize Authoritarian Rule? Evidence from the Salvadoran Gang Crackdown}
-    \newline -single-authored 
+\sectionline
+\cvsection{Work in Progress}
+\textbf{Daniel Kuhlen}, Jorge Zavala, Giovanna Lapresa. ``Democratic Audiences' Support for Authoritarian Rule Abroad'' \par
 
-\vspace{.2cm}
-    \textit{How Does Post-Communist Farmland Abandonment in Eastern Europe Influence Political Attitudes?}
-    \newline -with Dani Sandu (University of Fribourg)
-
-\vspace{.2cm}
-    \textit{Democratic Audiences Support for Authoritarian Rule Abroad}
-    \newline -with Jorge Zavala (WZB), Giovanna Lapresa (Humboldt University)
-\end{rSection}
-\newpage
 
 %---------------------------------------------------------------------------------
 %--- Conferences & Workshops ---
 %---------------------------------------------------------------------------------
 
-\begin{rSection}{Conferences \& Workshops}
-\vspace{.2cm}
+\sectionline
+\begin{yearlist}
+\cvsection{Conferences \&\\ Workshops}\yearitem{2026}
+\href{https://epssnet.org/belfast-2026/}{EPSS} \presenter,
+\href{https://www.europeanpeacescientists.org/docs/jtepsc/2026_NEPS_program_final.pdf}{NEPS} \presenter,
+\href{https://apsg.work/4th-summer-conference/}{APSG Conference} \presenter,
+\href{https://www.conflictandchange.org/phdworkshop2026}{UCL Conflict \& Change PhD Workshop} \presenter,
+\href{https://www.polver.uni-konstanz.de/conflict-dynamics/conflict-dynamics/call-for-papers/}{Conflict Dynamics Workshop} \presenter,
+\href{https://www.dvpw.de/fileadmin/docs/Termine/2025-11-26_CfA_Democratic_Resilience_Workshop_Darmstadt.pdf}{Democratic Resilience Meets Democratic Backsliding Workshop} \presenter{}\&\discussant
 
-\textbf{Conferences}
+\vspace{0.5em}
+\yearitem{2025}
+\href{https://apsg.work/past-workshops/}{APSG Spring Workshop Series} \presenter
 
-{\renewcommand{\arraystretch}{1.2}%
-\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{2.6em} X@{}}
-2026 & European Political Science Society (EPSS), Belfast \\
-\end{tabularx}}
+\vspace{0.5em}
+\yearitem{2024}
+\href{https://www.iasgp.org/iasgp-annual-conference-2024-programme-registrations-open/}{IASGP 48th Annual Conference)} \presenter
+\vspace{0.5em}
 
-\vspace{.15cm}
-\textbf{Workshops \& Specialized Conferences}
+\yearitem{2023}
+\href{https://www.iasgp.org/cfp-iasgp-2023-annual-conference-programme/}{IASGP 47th Annual Conference)} \presenter,
+\href{https://www.dvpw.de/ak/vergleichende-parlamentarismusforschung}{GPSA Standing Group \textit{Comparative Legislative Studies}} \presenter,
+\href{https://www.dvpw.de/gliederung/sektionen/regierungssystem-und-regieren-in-der-bundesrepublik-deutschland}{GPSA Standing Group \textit{Government System and Governance in Germany}} \presenter
+\end{yearlist}
 
-{\renewcommand{\arraystretch}{1.2}%
-\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{2.6em} X@{}}
-2026 & Jan Tinbergen European Peace Science Conference (NEPS), Humboldt University of Berlin \\
-     & 4th Authoritarian Political Systems Group Conference (APSG), Queen Mary University of London \\
-     & Conflict \& Change PhD Workshop, University College London \\
-     & \nth{10} Workshop on Conflict Dynamics, Uppsala University \\
-     & Democratic Resilience Meets Democratic Backsliding Workshop, Technical University of Darmstadt \\[.35cm]
-2025 & Authoritarian Political Systems Group (APSG) Spring Workshop Series, Online \\[.35cm]
-2024 & International Association for the Study of German Politics (IASGP) \nth{48} annual conference, Darmstadt \\[.35cm]
-2023 & International Association for the Study of German Politics (IASGP) \nth{47} annual conference, Mannheim \\
-     & German Political Science Association (GPSA)\newline\hspace*{1.5em}Conference of the standing group \textit{Comparative Legislative Studies}, Bamberg\newline\hspace*{1.5em}Conference of the standing group \textit{Government System and Governance in Germany}, Berlin \\
-\end{tabularx}}
-\end{rSection}
-
-\vspace{.45cm}
 %---------------------------------------------------------------------------------
 %--- Summer Schools ---
 %---------------------------------------------------------------------------------
 
-\begin{rSection}{Summer Schools}
-\vspace{.2cm}
+\sectionline
+\cvsection{Summer Schools}
+\entry{European University Institute (EUI)}{Sep 2024}
+      {\href{https://www.eui.eu/news-hub?id=sps-summer-academy-2024-in-what-shape-is-europes-democracy}{SPS Summer Academy}}
 
-    {\renewcommand{\arraystretch}{1.2}%
-    \begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
-    9 - 13 Sep 2024 & \textbf{European University Institute (EUI)}\newline SPS Summer Academy, Florence, Italy \\
-    \end{tabularx}}
-\end{rSection}
+\newpage
 
-\vspace{.4cm}
+%---------------------------------------------------------------------------------
+%--- Teaching ---
+%---------------------------------------------------------------------------------
+
+\cvsection{Teaching}
+\entry{Hertie School}{Sep 2026 -- Jan 2027}
+      {Teaching Assistant, Statistics II (M.A.)}
+
+%---------------------------------------------------------------------------------
+%--- Academic Work Experience ---
+%---------------------------------------------------------------------------------
+
+\sectionline
+\cvsection{Academic Work \\ Experience}
+\entry{TU Chemnitz}{Feb 2023 -- Jul 2025}
+      {RA, Chair of Political Science Research Methods \\
+       Jun.-Prof.\ Arndt Leininger}
+\entryskip
+\entry{TU Darmstadt}{Aug 2022 -- Aug 2025}
+      {RA, Chair of German Political System and Comparison of
+       Political Systems \\ Prof.\ Dr.\ Christian Stecker}
+\entryskip
+\entry{Humboldt-Universität zu Berlin}{Mar 2021 -- Jul 2022}
+      {RA, Chair of German Politics \\ Prof.\ Dr.\ Jochen Müller}
+
 %---------------------------------------------------------------------------------
 %--- Grants & Scholarships ---
 %---------------------------------------------------------------------------------
 
-\begin{rSection}{Grants \& Scholarships}
-\vspace{.2cm}
+\sectionline
+\begin{yearlist}
+\cvsection{Grants}\yearitem{2025}
+\texteuro 2,750 for an exchange semester at UBC (Humboldt PROMOS Mobility Scholarship)\par
+\vspace{0.5em}
+\yearitem{2024}
+\texteuro 764 for the EUI SPS Summer Academy (travel grant, Institute of Social
+Sciences, Humboldt-Universität zu Berlin)\par
+\end{yearlist}
 
-    \textbf{Budget Committee of the Institute of Social Sciences at Humboldt University} \\
-    Type: Travel and accommodation for participation in the EUI SPS Summer Academy \\
-    Amount: 764,32€
-
-    \textbf{Humboldt PROMOS} \\
-    Type: Mobility scholarship for an exchange semester at the University of British Columbia \\
-    Amount: 2750,00€
-\end{rSection}
-
-\vspace{.4cm}
 %---------------------------------------------------------------------------------
 %--- Non-Academic Work Experience ---
 %---------------------------------------------------------------------------------
 
-\begin{rSection}{Non-Academic Work Experience}
-\vspace{.2cm}
+\sectionline
+\cvsection{Other Work \\ Experience}
+\entry{Social Pedagogical Institute Berlin Walter May}{Mar 2022 -- Oct 2022}
+      {Student Assistant, Living Conditions, Diversity and Urban Development
+       Division; extended reception center for unaccompanied minor refugees}
 
-    {\setlength{\parskip}{0pt}\renewcommand{\arraystretch}{1.2}%
-    \noindent\begin{tabularx}{\linewidth}{@{\hspace{1.5em}}p{1.5in} X@{}}
-    Mar 2022 - Oct 2022 & \textbf{Social Pedagogical Institute Berlin Walter May}\newline Student Assistant in the Living Conditions, Diversity and Urban Development Division\newline Assistance in the extended reception center for unaccompanied minor refugees
-    \end{tabularx}\par}
-\end{rSection}
-
-\vspace{.4cm}
 %---------------------------------------------------------------------------------
-%--- Software & Languages ---
+%--- Service ---
 %---------------------------------------------------------------------------------
-% Two rSections placed side by side in equal-width minipages.
 
-\noindent
-\begin{minipage}[t]{0.5\textwidth}
-    \begin{rSection}{Software}
-        \vspace{.2cm}
-        \begin{tabular}{ @{} >{\bfseries}l @{\hspace{6ex}} l }
-            R & \grade{5}\\
-            \LaTeX & \grade{5}\\
-            Python & \grade{3}\\
-            ArcGIS & \grade{3}
-        \end{tabular}
-    \end{rSection}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.5\textwidth}
-    \begin{rSection}{Languages}
-        \vspace{.3cm}
-        \begin{tabular}{ @{} >{\bfseries}l @{\hspace{6ex}} l }
-            German & \grade{5} first language \\
-            English & \grade{4.5} C2\\
-            Spanish & \grade{2.5} B2 \\
-        \end{tabular}
-    \end{rSection}
-\end{minipage}
+\sectionline
+\cvsection{Service}
+Doctoral Student Representative \itshape DYNAMICS RTG \hfill 2025 -- present\par
+
+%---------------------------------------------------------------------------------
+%--- Skills ---
+%---------------------------------------------------------------------------------
+
+\sectionline
+\cvsection{Languages}
+German \& English (\textit{fluent}), Spanish (\textit{B2})\par
+
+\sectionline
+\cvsection{Software}
+R, \LaTeX, Python, QGIS\par
 
 \end{document}
